@@ -1,0 +1,8 @@
+.f1{
+    text-decoration: underline;
+}
+
+.list-unstyled li a{
+    color: white;
+    text-decoration: none;
+}

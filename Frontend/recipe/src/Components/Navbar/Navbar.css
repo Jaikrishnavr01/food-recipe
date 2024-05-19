@@ -1,0 +1,138 @@
+.navbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    z-index: 2;
+  }
+  
+  .navbar-left {
+    padding-left: 20px;
+    flex: 1;
+  }
+  
+  .navbar-center {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navbar-toggle {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin-right: 20px;
+  }
+  
+  .nav-links li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  .navbar-right {
+    padding-right: 20px;
+    flex: 1;
+    text-align: right;
+  }
+  
+  /* Active class */
+  .nav-links li a.active {
+    color: #ff0; /* Change color as needed */
+  }
+  
+  /* Toggle Button Styles */
+  .toggle-line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .toggle-line.active:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .toggle-line.active:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .toggle-line.active:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  .btn2 {
+    background-color: #b5fa55;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn1 {
+    background-color: #b5fa55;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: none;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .navbar-toggle {
+      display: block;
+      position: absolute;
+      top: 40%;
+      right: 20px;
+    }
+    
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 80%;
+      left: 50%; 
+      transform: translateX(-50%); /* Center horizontally */
+      width: 100%;
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .nav-links.show {
+      display: flex;
+    }
+    
+    .nav-links li {
+
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    
+    .btn2 {
+      display: none;
+    }
+    
+    .btn1 {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  

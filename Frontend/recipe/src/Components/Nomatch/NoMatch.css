@@ -1,0 +1,48 @@
+/* NoMatch.css */
+
+.nomatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .nomatch img {
+    max-width: 80%; /* Reduce the maximum width of the image */
+    max-height: 300px; /* Set a maximum height for the image */
+    height: auto;
+  }
+  
+  .nomatch-message {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .nomatch-message h1 {
+    font-size: 6rem;
+    margin-bottom: 10px;
+  }
+  
+  .nomatch-message h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #28a745; /* Green color */
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .btn:hover {
+    background-color: #218838; /* Dark green color */
+  }
+  
