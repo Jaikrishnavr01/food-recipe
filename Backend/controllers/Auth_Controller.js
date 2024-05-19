@@ -26,7 +26,7 @@ exports.signup = async (req, res) => {
     })
 
     await user.save()
-    res.status(200).json({ message: "user created successfully" })
+    // res.status(200).json({ message: "user created successfully" })
 
     // email sending 
     const transporter = nodemailer.createTransport({
@@ -57,3 +57,21 @@ exports.signup = async (req, res) => {
         }
     })
 }
+
+
+exports.activate = async (req, res) => {
+    
+        const { activationCode } = req.params; // Extract activationCode from req.params
+        let user = await userModel.findOne({ activationCode }); // Find the user by activationCode
+
+        if (!user) {
+            return res.status(500).json({ message: "Cannot activate: User not found" }); // Return 404 if user not found
+        }
+
+        user.isActivated = true; // Set isActivated to true
+        await user.save(); // Save the user document
+
+        res.status(200).json({
+            message: "Account activated successfully"
+        });
+};
