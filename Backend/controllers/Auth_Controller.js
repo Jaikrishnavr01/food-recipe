@@ -60,18 +60,41 @@ exports.signup = async (req, res) => {
 
 
 exports.activate = async (req, res) => {
-    
-        const { activationCode } = req.params; // Extract activationCode from req.params
-        let user = await userModel.findOne({ activationCode }); // Find the user by activationCode
 
-        if (!user) {
-            return res.status(500).json({ message: "Cannot activate: User not found" }); // Return 404 if user not found
-        }
+    const { activationCode } = req.params; // Extract activationCode from req.params
+    let user = await userModel.findOne({ activationCode }); // Find the user by activationCode
 
-        user.isActivated = true; // Set isActivated to true
-        await user.save(); // Save the user document
+    if (!user) {
+        return res.status(500).json({ message: "Cannot activate: User not found" }); // Return 404 if user not found
+    }
 
-        res.status(200).json({
-            message: "Account activated successfully"
-        });
+    user.isActivated = true; // Set isActivated to true
+    await user.save(); // Save the user document
+
+    res.status(200).json({
+        message: "Account activated successfully"
+    });
 };
+
+exports.signin = async (req, res) => {
+    const { email, password } = req.body;
+
+    let user = await userModel.findOne({ email })
+    if (!user) {
+        return res.status(400).json({ message: "User not found" })
+    }
+    const isMatching = await bcrypt.compare(password, user.password)
+
+    if (!isMatching) {
+        return res.status(400).json({ message: "Password is incorrect" })
+    }
+
+    if (!user.isActivated) {
+        return res.status(400).json({ message: "Account is not activated" })
+    }
+
+    return res.status(200).json({
+        message: "Login successfully",
+        user,
+    })
+}

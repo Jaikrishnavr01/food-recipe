@@ -1,6 +1,7 @@
 const express = require('express')
 const connetDB = require('./config/db')
 const user = require('./routes/user')
+const Recipe = require('./routes/Recipe')
 require('dotenv').config()
 
 const app = express()
@@ -8,6 +9,8 @@ connetDB()
 
 
 app.use('/auth',user)
+
+app.use('/food', Recipe)
 
 app.get("/", (req,res) =>{
     res.send("Welcome to Recipe Website")
