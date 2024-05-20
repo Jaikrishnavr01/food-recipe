@@ -15,9 +15,9 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     
-    isAdmin: {
-        type: Boolean,
-        default: true
+    userType: {
+        type: String,
+        default: "User"
     },
 
     activationCode: {

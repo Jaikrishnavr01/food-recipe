@@ -1,34 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Navbar from '../Components/Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
 import '../Pages/home.css';
+import Admin from './Admin';
 
 function User() {
   const [isSignup, setIsSignup] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    // Check for user data in local storage
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const url = isSignup ? 'http://localhost:3001/auth/signup' : 'http://localhost:3001/auth/signin';
     const data = isSignup ? { username, email, password } : { email, password };
 
     try {
       const response = await axios.post(url, data);
       console.log('Response:', response.data);
-      // Handle success (e.g., navigate to another page, display a success message, etc.)
+      setUser(response.data.user);
+      localStorage.setItem('user', JSON.stringify(response.data.user)); // Store user data in local storage
+      setSuccess(isSignup ? 'Signup successful.' : 'Login successful.');
+      setError('');
     } catch (error) {
-      console.error('Error:', error);
-      // Handle error (e.g., display an error message)
+      console.error('Error:', error.response.data.message);
+      setError(error.response.data.message);
+      setSuccess('');
     }
   };
 
   const toggleForm = () => {
     setIsSignup(!isSignup);
+    setError('');
+    setSuccess('');
   };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user'); // Clear user data from local storage
+    setSuccess('');
+  };
+
+  if (user) {
+    return (
+      <div>
+        <Navbar onLogout={handleLogout} user={user} />
+        <div className={user.userType === 'Admin' ? "admin-page" : "user-page"}>
+          <h1>Welcome {user.userType === 'Admin' ? 'Admin, ' : ''}{user.username}</h1>
+          <Admin/>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -36,28 +73,8 @@ function User() {
       <div className='form-div'>
         <form onSubmit={handleSubmit}>
           <h1>{isSignup ? 'Signup' : 'Login'}</h1>
-          {!isSignup && (
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          )}
-          {!isSignup && (
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          )}
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           {isSignup && (
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -69,28 +86,24 @@ function User() {
               />
             </div>
           )}
-           {isSignup && (
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-          )}
-          {isSignup && (
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          )}
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
           <div className="form-group">
             <button type='submit'>{isSignup ? 'Signup' : 'Login'}</button>
           </div>

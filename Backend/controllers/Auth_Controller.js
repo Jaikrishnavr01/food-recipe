@@ -98,3 +98,41 @@ exports.signin = async (req, res) => {
         user,
     })
 }
+
+
+//
+
+exports.allusers = async (req, res) => {
+    try {
+        const users = await userModel.find();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.findUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await userModel.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.deleteUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await userModel.findByIdAndDelete(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}

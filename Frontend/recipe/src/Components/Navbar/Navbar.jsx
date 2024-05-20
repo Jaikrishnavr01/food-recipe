@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import './Navbar.css'
+import React, { useState } from 'react';
+import './Navbar.css';
 import { Link, NavLink } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ onLogout ,user }) {
   const [showMenu, setShowMenu] = useState(false);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -30,18 +31,34 @@ function Navbar() {
           <li>
             <NavLink to="/About" onClick={toggleMenu}>About Us</NavLink>
           </li>
-
+          {!user && (
           <li>
-            <Link to='/user'> <button className="btn1">Login</button></Link>
+            <Link to='/user'>
+              <button className="btn1">Login</button>
+            </Link>
           </li>
-
+          
+          )}
+          
+          {user && (
+            <li>
+              <button className="btn1" onClick={onLogout}>Logout</button>
+            </li>
+          )}
         </ul>
       </div>
       <div className="navbar-right">
-        <Link to='/user'><button className="btn2">Login</button></Link>
+      {!onLogout && (
+        <Link to='/user'>
+          <button className="btn2">Login</button>
+        </Link>
+        )}
+        {onLogout && (
+          <button className="btn2" onClick={onLogout}>Logout</button>
+        )}
       </div>
     </nav>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
