@@ -3,9 +3,13 @@ const connetDB = require('./config/db')
 const user = require('./routes/user')
 const Recipe = require('./routes/Recipe')
 require('dotenv').config()
+const cors = require('cors')
+
 
 const app = express()
 connetDB()
+
+app.use(cors())
 
 
 app.use('/auth',user)

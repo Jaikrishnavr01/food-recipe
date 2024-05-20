@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import About from './Pages/About';
 import Recipe from './Pages/Recipe';
 import User from './Pages/User';
+import NoMatch from './Components/Nomatch/NoMatch';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <Route path='/About' element={<About/>} />
     <Route path='/Recipe' element={<Recipe/>}/>
     <Route path='/user' element={<User/>}/>
+    <Route path='*' element={<NoMatch/>}/>
    </Routes>
     </>
   );

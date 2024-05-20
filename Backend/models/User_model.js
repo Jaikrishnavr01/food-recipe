@@ -1,29 +1,34 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-    username:{
-        type:String,
-        required:true
+    username: {
+        type: String,
+        required: true
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-    password:{
-        type:String,
-        required:true
-        }, 
+    password: {
+        type: String,
+        required: true
+    },
+    
+    isAdmin: {
+        type: Boolean,
+        default: true
+    },
 
-    activationCode:{
-        type:String,
-        required:true,
-        default:null
+    activationCode: {
+        type: String,
+        required: true,
+        default: null
     },
-    isActivated:{
-        type:Boolean,
-        required:true,
-        default:false
+    isActivated: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 })
 
