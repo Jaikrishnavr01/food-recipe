@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
 import '../Pages/home.css';
 import Admin from './Admin';
+import Recipe from './Recipe';
 
 function User() {
   const [isSignup, setIsSignup] = useState(false);
@@ -53,19 +54,19 @@ function User() {
     localStorage.removeItem('user'); // Clear user data from local storage
     setSuccess('');
   };
-
   if (user) {
     return (
       <div>
         <Navbar onLogout={handleLogout} user={user} />
         <div className={user.userType === 'Admin' ? "admin-page" : "user-page"}>
           <h1>Welcome {user.userType === 'Admin' ? 'Admin, ' : ''}{user.username}</h1>
-          <Admin/>
+          {user.userType === 'Admin' ? <Admin /> : <Recipe/>}
         </div>
         <Footer />
       </div>
     );
   }
+  
 
   return (
     <div>
@@ -73,8 +74,6 @@ function User() {
       <div className='form-div'>
         <form onSubmit={handleSubmit}>
           <h1>{isSignup ? 'Signup' : 'Login'}</h1>
-          {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
           {isSignup && (
             <div className="form-group">
               <label htmlFor="username">Username</label>
@@ -104,6 +103,8 @@ function User() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
           <div className="form-group">
             <button type='submit'>{isSignup ? 'Signup' : 'Login'}</button>
           </div>

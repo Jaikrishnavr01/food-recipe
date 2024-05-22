@@ -1,11 +1,13 @@
 const express = require('express');
-const { create, getById, updateById, deleteById } = require('../controllers/Recipe_Controller');
+const { create, getById, updateById, deleteById, getAll } = require('../controllers/Recipe_Controller');
 const bodyParser = require('body-parser');
 
 const router = express.Router();
 router.use(bodyParser.json());
 
 router.post('/recipes', create);
+
+router.get('/', getAll);
 
 router.get('/recipes/:id', getById);
 

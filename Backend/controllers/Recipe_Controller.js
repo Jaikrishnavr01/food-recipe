@@ -1,16 +1,27 @@
 const Recipe_model = require("../models/Recipe_model");
 
 exports.create = async (req, res) => {
-    const { video, description, category, title } = req.body;
+    const { video, ingredients, instructions, category, title, poster} = req.body;
     const newRecipe = new Recipe_model({
         video,
-        description,
+        instructions,
         category,
-        title
+        title,
+        poster,
+        ingredients,
     });
 
     const savedRecipe = await newRecipe.save();
     res.status(201).json(savedRecipe);
+};
+
+exports.getAll = async (req, res) => {
+    try {
+        const recipes = await Recipe_model.find();
+        res.status(200).json(recipes);
+    } catch (error) {
+        res.status(500).json({ message: "Internal server error" });
+    }
 };
 
 exports.getById = async (req, res) => {
@@ -22,10 +33,10 @@ exports.getById = async (req, res) => {
 };
 
 exports.updateById = async (req, res) => {
-    const { video, description, category, title } = req.body;
+    const { video, ingredients,instructions, category, title , poster } = req.body;
     const updatedRecipe = await Recipe_model.findByIdAndUpdate(
         req.params.id,
-        { video, description, category, title },
+        { video, category,instructions ,ingredients, poster,title },
         { new: true }
     );
     if (!updatedRecipe) {

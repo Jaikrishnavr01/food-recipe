@@ -25,9 +25,7 @@ function Navbar({ onLogout ,user }) {
           <li>
             <NavLink exact to="/" onClick={toggleMenu}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to="/Recipe" onClick={toggleMenu}>Recipe</NavLink>
-          </li>
+      
           <li>
             <NavLink to="/About" onClick={toggleMenu}>About Us</NavLink>
           </li>

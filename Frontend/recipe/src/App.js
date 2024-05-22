@@ -16,10 +16,7 @@ function App() {
    <Routes>
     <Route path='/' element={<Home/>}/>
     <Route path='/About' element={<About/>} />
-    <Route path='/Recipe' element={<Recipe/>}/>
     <Route path='/user' element={<User/>}/>
-    <Route path='/login' element={<User/>}/>
-
     <Route path='*' element={<NoMatch/>}/>
    </Routes>
     </>
