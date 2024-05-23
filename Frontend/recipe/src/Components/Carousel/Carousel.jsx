@@ -26,19 +26,22 @@ function Carousel() {
     return () => clearInterval(interval);
   }, [currentSlide]);
 
+  function handlerecipe(){
+    window.location.href = "/user";
+  }
+
   return (
     <div className="carousel">
       <div className="label">
         <h3>Welcome to Cook book </h3>
         <p>Delight in life's pinnacle moments with delicious recipes</p>
        <div className='add-recipe'>
-        <button className='add-recipe-button'>Add your Recipe</button>
+        <button className='add-recipe-button' onClick={handlerecipe}>Add your Recipe</button>
        <div className='arrow-pos'>
         <img className='arrow' src={arrow} alt="arrow" />
        </div>
        <div className='p-content'>
-        <p>click here to add 
-new recipe</p>
+        <p>click here to add new recipe</p>
        </div>
        </div>
       </div>
