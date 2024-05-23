@@ -41,7 +41,7 @@ function Admin() {
   const handleSaveUser = async () => {
     const updatedData = { ...userFormData };
     if (!updatedData.password) {
-      delete updatedData.password; // Remove password if it is empty
+      delete updatedData.password; 
     }
     try {
       await axios.put(`http://localhost:3001/auth/users/${currentUser._id}`, updatedData);
