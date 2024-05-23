@@ -20,7 +20,7 @@ function Navbar({ onLogout, user }) {
     // Clear localStorage and log out
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
-    onLogout();
+
   };
 
   return (

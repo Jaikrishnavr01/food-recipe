@@ -7,6 +7,7 @@ import Recipe from './Pages/Recipe';
 import User from './Pages/User';
 import NoMatch from './Components/Nomatch/NoMatch';
 import Navbar from './Components/Navbar/Navbar';
+import RecipePage from './Pages/RecipePage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
     <Route path='/About' element={<About/>} />
     <Route path='/user' element={<User/>}/>
     <Route path='/dashboard' element={<User/>}/>
+    <Route path='/recipe/:id' element={<RecipePage/>}/>
     <Route path='*' element={<NoMatch/>}/>
    </Routes>
     </>
