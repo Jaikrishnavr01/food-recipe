@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { Link, NavLink } from 'react-router-dom';
 
-function Navbar({ onLogout ,user }) {
+function Navbar({ onLogout, user }) {
   const [showMenu, setShowMenu] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check if user is logged in using localStorage
+    const loggedInStatus = localStorage.getItem('isLoggedIn');
+    setIsLoggedIn(loggedInStatus === 'true');
+  });
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleLogout = () => {
+    // Clear localStorage and log out
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+    onLogout();
   };
 
   return (
@@ -23,25 +37,33 @@ function Navbar({ onLogout ,user }) {
         </div>
         <ul className={`nav-links ${showMenu ? 'show' : ''}`}>
           <li>
-            <NavLink exact to="/" onClick={toggleMenu}>Home</NavLink>
+            <NavLink exact to="/" onClick={toggleMenu}>
+              Home
+            </NavLink>
           </li>
-      
           <li>
-            <NavLink to="/About" onClick={toggleMenu}>About Us</NavLink>
+            <NavLink to="/about" onClick={toggleMenu}>
+              About Us
+            </NavLink>
           </li>
-         
-          {onLogout && ( <li>
-            <NavLink to="/user" onClick={toggleMenu}>Dashboard</NavLink>
-          </li> )}
+          {isLoggedIn && (
+            <li>
+              <NavLink to="/dashboard" onClick={toggleMenu}>
+                Dashboard
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
       <div className="navbar-right">
-      {!onLogout ? (
-        <Link to='/user'>
-          <button className="btn2">Login</button>
-        </Link>
-        ):(
-          <button className="btn2" onClick={onLogout}>Logout</button>
+        {!isLoggedIn ? (
+          <Link to="/user">
+            <button className="btn2">Login</button>
+          </Link>
+        ) : (
+          <button className="btn2" onClick={handleLogout}>
+            Logout
+          </button>
         )}
       </div>
     </nav>

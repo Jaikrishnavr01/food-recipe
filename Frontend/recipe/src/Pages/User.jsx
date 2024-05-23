@@ -17,7 +17,7 @@ function User() {
 
   useEffect(() => {
     // Check for user data in local storage
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+    const storedUser = JSON.parse(localStorage.getItem('isLoggedIn'));
     if (storedUser) {
       setUser(storedUser);
     }
@@ -33,7 +33,7 @@ function User() {
       const response = await axios.post(url, data);
       console.log('Response:', response.data);
       setUser(response.data.user);
-      localStorage.setItem('user', JSON.stringify(response.data.user)); // Store user data in local storage
+      localStorage.setItem('isLoggedIn', 'true'); // Store user data in local storage
       setSuccess(isSignup ? 'Signup successful.' : 'Login successful.');
       setError('');
     } catch (error) {
@@ -51,7 +51,7 @@ function User() {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem('user'); // Clear user data from local storage
+    localStorage.removeItem('isLoggedIn'); // Clear user data from local storage
     setSuccess('');
   };
   if (user) {

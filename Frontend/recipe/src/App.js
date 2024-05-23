@@ -17,6 +17,7 @@ function App() {
     <Route path='/' element={<Home/>}/>
     <Route path='/About' element={<About/>} />
     <Route path='/user' element={<User/>}/>
+    <Route path='/dashboard' element={<User/>}/>
     <Route path='*' element={<NoMatch/>}/>
    </Routes>
     </>
