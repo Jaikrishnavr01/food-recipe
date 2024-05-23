@@ -29,29 +29,18 @@ function Navbar({ onLogout ,user }) {
           <li>
             <NavLink to="/About" onClick={toggleMenu}>About Us</NavLink>
           </li>
-          {!user && (
-          <li>
-            <Link to='/user'>
-              <button className="btn1">Login</button>
-            </Link>
-          </li>
-          
-          )}
-          
-          {user && (
-            <li>
-              <button className="btn1" onClick={onLogout}>Logout</button>
-            </li>
-          )}
+         
+          {onLogout && ( <li>
+            <NavLink to="/user" onClick={toggleMenu}>Dashboard</NavLink>
+          </li> )}
         </ul>
       </div>
       <div className="navbar-right">
-      {!onLogout && (
+      {!onLogout ? (
         <Link to='/user'>
           <button className="btn2">Login</button>
         </Link>
-        )}
-        {onLogout && (
+        ):(
           <button className="btn2" onClick={onLogout}>Logout</button>
         )}
       </div>
