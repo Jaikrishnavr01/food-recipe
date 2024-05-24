@@ -18,6 +18,7 @@ function Navbar({ onLogout, user }) {
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     setIsLoggedIn(false);
+    window.location.reload();
 
   };
 

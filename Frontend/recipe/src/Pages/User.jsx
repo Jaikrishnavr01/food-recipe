@@ -51,6 +51,7 @@ function User() {
   const handleLogout = () => {
     setUser(null);
     localStorage.removeItem('isLoggedIn'); 
+    window.location.reload();
     setSuccess('');
   };
   if (user) {
