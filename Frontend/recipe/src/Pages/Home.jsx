@@ -42,7 +42,6 @@ export default function Home() {
   );
 }
 
-// Recipe card component
 function RecipeCard({ recipe }) {
   return (
     <div style={{marginTop:'20px'}}>
